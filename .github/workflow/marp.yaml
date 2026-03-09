@@ -14,4 +14,4 @@ jobs:
       - name: Marp build
         uses: marp-team/marp-cli-action@v3
         with:
-          args: slides.md -o slides.html
+          args: trabalhos_academicos.md -o trabalhos_academicos.html
