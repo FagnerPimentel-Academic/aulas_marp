@@ -1,0 +1,17 @@
+name: build slides
+
+on:
+  push:
+    paths:
+      - "**.md"
+
+jobs:
+  marp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Marp build
+        uses: marp-team/marp-cli-action@v3
+        with:
+          args: slides.md -o slides.html
