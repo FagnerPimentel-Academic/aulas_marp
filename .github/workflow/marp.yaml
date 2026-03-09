@@ -1,17 +1,32 @@
-name: build slides
+name: build-marp-slides
 
 on:
   push:
     paths:
       - "**.md"
+  workflow_dispatch:
 
 jobs:
-  marp:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - name: Marp build
-        uses: marp-team/marp-cli-action@v3
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Node
+        uses: actions/setup-node@v4
         with:
-          args: trabalhos_academicos.md -o trabalhos_academicos.html
+          node-version: 20
+
+      - name: Install Marp CLI
+        run: npm install -g @marp-team/marp-cli
+
+      - name: Build slides
+        run: marp slides.md -o slides.html
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: trabalhos_academicos
+          path: trabalhos_academicos.html
